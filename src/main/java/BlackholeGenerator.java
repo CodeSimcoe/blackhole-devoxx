@@ -30,6 +30,7 @@ static final int HEIGHT = 600;
 static final double DT = 0.05;         // Ray step size
 static final double GM = 1.5;          // Gravity strength
 static final double RS = 1.0;          // Event horizon radius
+static final int STEPS = 400;
 
 static Color[] generateBlackHole() {
   var pixels = new Color[WIDTH * HEIGHT];
@@ -67,7 +68,7 @@ static Color rayMarching(Vec3 pos, Vec3 vel) {
   var color = new Color(0, 0, 0);
 
   // Step the photon through the gravity field
-  for (var step = 0; step < 400; step++) {
+  for (var step = 0; step < STEPS; step++) {
     var r = pos.mag();
 
     if (r < RS) {
@@ -85,9 +86,12 @@ static Color rayMarching(Vec3 pos, Vec3 vel) {
     var nextPos = pos.add(nextVel.mul(DT));
 
     // Check if the ray crossed the accretion disk (the X-Z plane, where Y = 0)
-    if (pos.y() * nextPos.y() < 0) {
-      // Find exact distance from center where it hit the disk
-      var hitR = Math.sqrt(pos.x() * pos.x() + pos.z() * pos.z());
+    if ((pos.y() > 0 && nextPos.y() <= 0) || (pos.y() < 0 && nextPos.y() >= 0)) {
+      // Interpolate the segment's intersection with Y = 0.
+      // Include arrival on the plane, but exclude departure to avoid counting twice.
+      var t = pos.y() / (pos.y() - nextPos.y());
+      var hit = pos.add(nextPos.sub(pos).mul(t));
+      var hitR = Math.sqrt(hit.x() * hit.x() + hit.z() * hit.z());
 
       // Disk exists between radius 1.5 and 4.0
       if (hitR > 1.5 && hitR < 4.0) {
@@ -96,7 +100,7 @@ static Color rayMarching(Vec3 pos, Vec3 vel) {
         var diskBase = new Color(1.0, 0.5 + 0.5 * heat, heat * heat);
 
         // Fake Doppler beaming (brighter on one side as it spins towards us)
-        var doppler = 1.0 + (pos.x() / hitR) * 0.8;
+        var doppler = 1.0 + (hit.x() / hitR) * 0.8;
 
         // Soften the inner and outer edges of the disk
         var alpha = Math.sin((hitR - 1.5) / 2.5 * Math.PI);
