@@ -3,7 +3,9 @@ import module java.desktop;
 import jdk.internal.value.ValueClass;
 
 value record Vec3(double x, double y, double z) {
-  Vec3 add(Vec3 o) { return new Vec3(x + o.x, y + o.y, z + o.z); }
+  Vec3 add(Vec3 o) {
+    return new Vec3(x + o.x, y + o.y, z + o.z);
+  }
   Vec3 sub(Vec3 o) { return new Vec3(x - o.x, y - o.y, z - o.z); }
   Vec3 mul(double s) { return new Vec3(x * s, y * s, z * s); }
   double mag() { return Math.sqrt(x * x + y * y + z * z); }
