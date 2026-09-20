@@ -15,19 +15,19 @@ import java.util.concurrent.TimeUnit;
 
 // java -jar target/benchmarks.jar -prof gc
 // Benchmark                                                   Mode  Cnt          Score    Error   Units
-//BlackHoleBench.renderWithIdentity                           avgt    5         52,593 ±  1,389   ms/op
-//BlackHoleBench.renderWithIdentity:gc.alloc.rate             avgt    5       2022,373 ± 53,553  MB/sec
-//BlackHoleBench.renderWithIdentity:gc.alloc.rate.norm        avgt    5  111536309,830 ±  9,108    B/op
-//BlackHoleBench.renderWithIdentity:gc.count                  avgt    5        128,000           counts
-//BlackHoleBench.renderWithIdentity:gc.time                   avgt    5         51,000               ms
-//BlackHoleBench.renderWithValue                              avgt    5         48,566 ±  1,727   ms/op
-//BlackHoleBench.renderWithValue:gc.alloc.rate                avgt    5          4,151 ±  0,147  MB/sec
-//BlackHoleBench.renderWithValue:gc.alloc.rate.norm           avgt    5     211368,714 ±  7,780    B/op
-//BlackHoleBench.renderWithValue:gc.count                     avgt    5            ≈ 0           counts
-//BlackHoleBench.renderWithValueFlatArray                     avgt    5         48,312 ±  1,441   ms/op
-//BlackHoleBench.renderWithValueFlatArray:gc.alloc.rate       avgt    5          4,172 ±  0,125  MB/sec
-//BlackHoleBench.renderWithValueFlatArray:gc.alloc.rate.norm  avgt    5     211368,343 ±  9,512    B/op
-//BlackHoleBench.renderWithValueFlatArray:gc.count            avgt    5            ≈ 0           counts
+// BlackHoleBench.renderWithIdentity                           avgt    5         52,593 ±  1,389   ms/op
+// BlackHoleBench.renderWithIdentity:gc.alloc.rate             avgt    5       2022,373 ± 53,553  MB/sec
+// BlackHoleBench.renderWithIdentity:gc.alloc.rate.norm        avgt    5  111536309,830 ±  9,108    B/op
+// BlackHoleBench.renderWithIdentity:gc.count                  avgt    5        128,000           counts
+// BlackHoleBench.renderWithIdentity:gc.time                   avgt    5         51,000               ms
+// BlackHoleBench.renderWithValue                              avgt    5         48,566 ±  1,727   ms/op
+// BlackHoleBench.renderWithValue:gc.alloc.rate                avgt    5          4,151 ±  0,147  MB/sec
+// BlackHoleBench.renderWithValue:gc.alloc.rate.norm           avgt    5     211368,714 ±  7,780    B/op
+// BlackHoleBench.renderWithValue:gc.count                     avgt    5            ≈ 0           counts
+// BlackHoleBench.renderWithValueFlatArray                     avgt    5         48,312 ±  1,441   ms/op
+// BlackHoleBench.renderWithValueFlatArray:gc.alloc.rate       avgt    5          4,172 ±  0,125  MB/sec
+// BlackHoleBench.renderWithValueFlatArray:gc.alloc.rate.norm  avgt    5     211368,343 ±  9,512    B/op
+// BlackHoleBench.renderWithValueFlatArray:gc.count            avgt    5            ≈ 0           counts
 
 @Warmup(iterations = 5, time = 2, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 5, time = 2, timeUnit = TimeUnit.SECONDS)
@@ -37,12 +37,14 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class BlackHoleBench {
 
+  // Lowered value for bench
   static final int WIDTH = 80;
   static final int HEIGHT = 60;
 
-  static final double DT = 0.05;         // Ray step size
-  static final double GM = 1.5;          // Gravity strength
-  static final double RS = 1.0;          // Event horizon radius
+  static final int STEPS = 400;  // Ray-marching steps
+  static final double DT = 0.05; // Ray step size
+  static final double GM = 1.5;  // Gravity strength
+  static final double RS = 1.0;  // Event horizon radius
 
   static final class Value {
     value record Vec3(double x, double y, double z) {
@@ -98,7 +100,7 @@ public class BlackHoleBench {
       var color = Color.BLACK;
 
       // Step the photon through the gravity field
-      for (var step = 0; step < 400; step++) {
+      for (var step = 0; step < STEPS; step++) {
         var r = pos.mag();
 
         if (r < RS) {
@@ -199,7 +201,7 @@ public class BlackHoleBench {
       var color = Color.BLACK;
 
       // Step the photon through the gravity field
-      for (var step = 0; step < 400; step++) {
+      for (var step = 0; step < STEPS; step++) {
         var r = pos.mag();
 
         if (r < RS) {

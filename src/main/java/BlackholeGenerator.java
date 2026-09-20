@@ -29,10 +29,10 @@ value record Color(double r, double g, double b) {
 static final int WIDTH = 800;
 static final int HEIGHT = 600;
 
-static final double DT = 0.05;         // Ray step size
-static final double GM = 1.5;          // Gravity strength
-static final double RS = 1.0;          // Event horizon radius
-static final int STEPS = 400;
+static final int STEPS = 400;  // Ray-marching steps
+static final double DT = 0.05; // Ray step size
+static final double GM = 1.5;  // Gravity strength
+static final double RS = 1.0;  // Event horizon radius
 
 static Color[] generateBlackHole() {
   var pixels = new Color[WIDTH * HEIGHT];
