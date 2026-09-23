@@ -12,12 +12,14 @@
           <entry name="$MAVEN_REPOSITORY$/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" />
         </processorPath>
+        <module name="blackhole" />
         <module name="valhalla-demo" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="blackhole" options="--enable-preview --add-exports=java.base/jdk.internal.vm.annotation=ALL-UNNAMED --add-exports=java.base/jdk.internal.value=ALL-UNNAMED" />
       <module name="valhalla-demo" options="--enable-preview --add-exports=java.base/jdk.internal.vm.annotation=ALL-UNNAMED --add-exports=java.base/jdk.internal.value=ALL-UNNAMED" />
     </option>
   </component>
