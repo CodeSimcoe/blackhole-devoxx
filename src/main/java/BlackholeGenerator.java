@@ -2,7 +2,7 @@ import module java.desktop;
 
 import jdk.internal.value.ValueClass;
 
-value record Vec3(double x, double y, double z) {
+record Vec3(double x, double y, double z) {
   Vec3 add(Vec3 o) {
     return new Vec3(x + o.x, y + o.y, z + o.z);
   }
@@ -18,7 +18,7 @@ value record Vec3(double x, double y, double z) {
   }
 }
 
-value record Color(double r, double g, double b) {
+record Color(double r, double g, double b) {
   Color add(Color o) { return new Color(r + o.r, g + o.g, b + o.b); }
   Color mul(double s) { return new Color(r * s, g * s, b * s); }
   Color clamp() {
