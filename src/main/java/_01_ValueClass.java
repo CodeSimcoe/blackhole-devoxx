@@ -20,6 +20,10 @@ value class Vec3 {
 }
 
 void main() {
+
+  IO.println(Runtime.version());
+  IO.println();
+
   var v1 = new Vec3(1.0, 2.0, 3.0);
   var v2 = new Vec3(1.0, 2.0, 3.0);
 
@@ -27,12 +31,13 @@ void main() {
   IO.println(v1.getClass().isValue());
   IO.println(v1 == v2);
 
+  IO.println();
+
   // hashCode
   IO.println(v1.hashCode());
   IO.println(v2.hashCode());
 
-  IO.println(System.identityHashCode(v1));
-  IO.println(System.identityHashCode(v2));
+  IO.println();
 
 //  synchronized (v1) {
 //    // Do stuff
@@ -40,7 +45,6 @@ void main() {
 
 //  Object o = v1;
 //  synchronized (o) {
-//    // Trick the compiler
 //  }
 
 //  var weakReference = new java.lang.ref.WeakReference<>(v1);

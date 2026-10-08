@@ -2,6 +2,7 @@ interface Vector {
   double magnitudeSquared();
 }
 
+// "value-enabled"
 abstract value class AbstractVector implements Vector {
   double magnitude() {
     return Math.sqrt(magnitudeSquared());
