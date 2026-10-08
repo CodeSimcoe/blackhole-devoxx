@@ -28,5 +28,6 @@ value class Vec3 extends AbstractVector {
 
 void main() {
   var vector = new Vec3(3.0, 4.0, 12.0);
+  IO.println(vector instanceof Object);
   IO.println(vector.magnitude());
 }

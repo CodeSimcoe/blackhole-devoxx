@@ -1,4 +1,4 @@
-value class Vec3 {
+class Vec3 {
   final double x;
   final double y;
   final double z;
@@ -37,4 +37,5 @@ value class Vec3 {
 }
 void main() {
   var vector = new Vec3(1.0, 2.0, 3.0);
+  IO.println(vector);
 }
